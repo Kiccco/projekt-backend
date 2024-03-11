@@ -35,7 +35,6 @@ func main() {
 
 	router.SetupRoutes(app)
 
-	log.Printf("Server laufa z verzijo: %s\n", version)
 	log.Panic(app.Listen(":8080"))
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)

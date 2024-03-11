@@ -46,7 +46,7 @@ func Login(c *fiber.Ctx) error {
 		"username": token.Username,
 		"email":    user.Mail,
 		"exp":      time.Now().Add(time.Hour * 12).Unix(),
-	} //TODO: dodat kasn rank/role ma
+	}
 
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
