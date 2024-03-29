@@ -7,7 +7,6 @@ import (
 	"errors"
 	"log"
 	"net/mail"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
@@ -34,7 +33,6 @@ func Login(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusInternalServerError)
 	}
 
-	log.Println(token)
 	//primerja geslo v bazi in tistega k ga je poslau
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(token.Password))
 	if err != nil {
@@ -43,9 +41,9 @@ func Login(c *fiber.Ctx) error {
 
 	//jwt token
 	claims := jwt.MapClaims{
+		"id":       user.ID,
 		"username": token.Username,
 		"email":    user.Mail,
-		"exp":      time.Now().Add(time.Hour * 12).Unix(),
 	}
 
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

@@ -1,7 +1,9 @@
 package main
 
 import (
+	"backend/main/chat"
 	"backend/main/database"
+	"backend/main/friends"
 	"backend/main/router"
 	"log"
 	"os"
@@ -23,14 +25,15 @@ const (
 func main() {
 
 	database.OpenConnection(dbHost, dbUser, dbPass, dbName, dbPort)
+	chat.Init()
+	friends.Init()
 	log.Printf("Povezan z bazo\n")
-	log.Println(database.DB)
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
-		AllowOriginsFunc: func(origin string) bool {
-			return true
-		},
+		AllowOrigins: "*",
+		AllowMethods: "GET,POST,HEAD,PUT,DELETE,PATCH",
+		AllowHeaders: "*",
 	}))
 
 	router.SetupRoutes(app)

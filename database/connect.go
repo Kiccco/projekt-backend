@@ -20,6 +20,6 @@ func OpenConnection(host string, user string, pass string, dbname string, port u
 	}
 	DB = db
 
-	DB.AutoMigrate(&entities.User{}, &entities.Privileges{})
+	DB.AutoMigrate(&entities.User{}, &entities.Privileges{}, &entities.FriendRequests{}, &entities.Friends{})
 
 }
